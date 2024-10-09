@@ -6,11 +6,11 @@
 
  onMount(() => {});
 
- function click() {
-  console.log('CLICK');
+ function clickHomepage() {
+  window.open(link, '_blank');
  }
 
- function key() {
+ function keyHomepage() {
   if (event.key === 'Enter' || event.key === ' ') {
    event.preventDefault();
    click();
@@ -21,9 +21,37 @@
 <style>
  .app {
   display: flex;
+  align-items: center;
+  justify-content: center;
   height: 100vh;
   background: url('/img/background.webp') repeat;
   background-size: 400px;
+ }
+
+ .form {
+  border: 1px solid #000;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: var(--shadow);
+ }
+
+ .form .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+ }
+
+ .form .logo img {
+  display: block;
+  width: 50px;
+  height: 50px;
+ }
+
+ .form .logo .title {
+  font-size: 30px;
+  font-weight: bold;
  }
 
  .status {
@@ -79,7 +107,15 @@
 </style>
 
 <svelte:head>
- <title>{product}</title>
+ <title>{product} - registration</title>
 </svelte:head>
 
-<div class="app"></div>
+<div class="app">
+ <div class="form">
+  <div class="logo" role="button" tabindex="0" on:click={clickHomepage} on:keydown={keyHomepage}>
+   <div><img src="img/logo.svg" alt={product} /></div>
+   <div class="title">{product}</div>
+  </div>
+ </div>
+ <div class="status">aaa</div>
+</div>
