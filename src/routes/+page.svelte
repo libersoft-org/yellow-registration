@@ -1,10 +1,8 @@
 <script>
- import { onMount } from 'svelte';
  import '../app.css';
+ import Registration from '../pages/registration.svelte';
  const product = 'Yellow';
  const link = 'https://yellow.libersoft.org';
-
- onMount(() => {});
 
  function clickHomepage() {
   window.open(link, '_blank');
@@ -21,14 +19,26 @@
 <style>
  .app {
   display: flex;
+  flex-direction: column;
+  height: 100vh;
+ }
+
+ .page {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  flex-grow: 1;
   background: url('/img/background.webp') repeat;
   background-size: 400px;
+  overflow: auto;
  }
 
  .form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
   border: 1px solid #000;
   padding: 10px;
   border-radius: 10px;
@@ -55,67 +65,48 @@
  }
 
  .status {
-  z-index: 1000;
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
-  border-radius: 5px;
-  overflow: hidden;
-  font-weight: bold;
- }
-
- .status.info {
-  color: #080;
-  background-color: #dfd;
-  border: 1px solid #080;
- }
-
- .status.error {
-  color: #800;
-  background-color: #fdd;
-  border: 1px solid #800;
- }
-
- .status .panel {
   display: flex;
-  justify-content: right;
-  height: 20px;
+  align-items: center;
+  gap: 10px;
+  height: 40px;
+  padding: 0 10px;
+  background-color: #222;
+  color: #fff;
+  box-shadow: var(--shadow);
  }
 
- .status .panel.info {
-  background-color: #080;
+ .status .indicator {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
  }
 
- .status .panel.error {
-  background-color: #800;
+ .status .indicator.green {
+  background-color: #0f0;
  }
 
- .status .panel .close {
-  display: flex;
-  padding: 5px;
-  cursor: pointer;
- }
-
- .status .panel .close img {
-  width: 10px;
-  height: 10px;
- }
-
- .status .text {
-  padding: 10px;
+ .status .indicator.red {
+  background-color: #f00;
  }
 </style>
 
 <svelte:head>
- <title>{product} - registration</title>
+ <title>{product} - account registration</title>
 </svelte:head>
 
 <div class="app">
- <div class="form">
-  <div class="logo" role="button" tabindex="0" on:click={clickHomepage} on:keydown={keyHomepage}>
-   <div><img src="img/logo.svg" alt={product} /></div>
-   <div class="title">{product}</div>
+ <div class="page">
+  <div class="form">
+   <div class="logo" role="button" tabindex="0" on:click={clickHomepage} on:keydown={keyHomepage}>
+    <div><img src="img/logo.svg" alt={product} /></div>
+    <div class="title">{product}</div>
+   </div>
+   <div class="bold">Account registration</div>
+   <Registration />
   </div>
  </div>
- <div class="status">aaa</div>
+ <div class="status">
+  <div class="indicator red"></div>
+  <div>Disconnected</div>
+ </div>
 </div>
