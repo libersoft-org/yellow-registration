@@ -65,6 +65,15 @@
   font-weight: bold;
  }
 
+ .form .description {
+  width: 100%;
+  padding: 5px 0;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #ddd;
+ }
+
  .status {
   display: flex;
   align-items: center;
@@ -102,7 +111,7 @@
     <div><img src="img/logo.svg" alt={product} /></div>
     <div class="title">{product}</div>
    </div>
-   <div class="bold">Account registration</div>
+   <div class="description">Account registration</div>
    <Registration />
   </div>
  </div>
