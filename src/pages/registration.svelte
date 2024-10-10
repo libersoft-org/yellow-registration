@@ -1,12 +1,18 @@
 <script>
+ import { onMount } from 'svelte';
  import Field from '../components/form-field.svelte';
  import Button from '../components/button.svelte';
- const countries = [
-  {
-   code: '+420',
-   flag: '🇨🇿',
-  },
- ];
+ let countries = [];
+
+ onMount(async () => {
+  try {
+   const res = await fetch('countries.json');
+   if (res.ok) countries = await res.json();
+   else console.error('Error while loading the JSON file:', res.statusText);
+  } catch (ex) {
+   console.error('Error while fetching file:', ex);
+  }
+ });
  let terms = false;
 </script>
 
@@ -33,8 +39,9 @@
 <div class="registration">
  <Field label="Phone number">
   <select>
+   <option value="">- Country code -</option>
    {#each countries as c, index}
-    <option value={index}>{c.flag} {c.code}</option>
+    <option value={index}>{c.flag} {c.dial_code} ({c.code})</option>
    {/each}
   </select>
   <input type="text" placeholder="Phone number" />
@@ -46,10 +53,14 @@
   <input type="text" placeholder="Last name" />
  </Field>
  <Field label="Gender">
-  <div class="dropdown"></div>
+  <select>
+   <option value="">--- Select your gender ---</option>
+   <option value="1">Male</option>
+   <option value="0">Female</option>
+  </select>
  </Field>
  <Field label="Birth date">
-  <div class="button"></div>
+  <div class="button">--- Select your birth date ---</div>
  </Field>
  <Field label="Password">
   <input type="text" placeholder="Password" />
