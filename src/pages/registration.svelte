@@ -3,6 +3,7 @@
  import Field from '../components/form-field.svelte';
  import Button from '../components/button.svelte';
  let countries = [];
+ let terms = false;
 
  onMount(async () => {
   try {
@@ -13,7 +14,17 @@
    console.error('Error while fetching file:', ex);
   }
  });
- let terms = false;
+
+ function clickBirthDate() {
+  // TODO - open date picker dialog
+ }
+
+ function keyBirthDate() {
+  if (event.key === 'Enter' || event.key === ' ') {
+   event.preventDefault();
+   clickBirthDate();
+  }
+ }
 </script>
 
 <style>
@@ -27,12 +38,15 @@
  input {
   display: flex;
   flex-grow: 1;
-  /*border: 1px solid #000;*/
   border: 0;
   outline: 0;
   font-family: inherit;
   font-size: inherit;
   background-color: #fff;
+ }
+
+ .button {
+  cursor: pointer;
  }
 </style>
 
@@ -60,7 +74,7 @@
   </select>
  </Field>
  <Field label="Birth date">
-  <div class="button">--- Select your birth date ---</div>
+  <div class="button" role="button" tabindex="0" on:click={clickBirthDate} on:keydown={keyBirthDate}>--- Select your birth date ---</div>
  </Field>
  <Field label="Password">
   <input type="text" placeholder="Password" />
