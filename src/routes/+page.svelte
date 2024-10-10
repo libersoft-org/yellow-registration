@@ -39,11 +39,12 @@
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  border: 1px solid #000;
+  border: 1px solid #555;
   padding: 10px;
   border-radius: 10px;
   background-color: #fff;
   box-shadow: var(--shadow);
+  overflow: auto;
  }
 
  .form .logo {
