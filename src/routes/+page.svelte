@@ -71,7 +71,8 @@
   text-align: center;
   font-size: 20px;
   font-weight: bold;
-  background-color: #ddd;
+  background-color: #fd1;
+  border-radius: 10px;
  }
 
  .status {
