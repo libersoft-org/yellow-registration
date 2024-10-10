@@ -45,6 +45,10 @@
   background-color: #fff;
  }
 
+ select {
+  cursor: pointer;
+ }
+
  .button {
   cursor: pointer;
  }
