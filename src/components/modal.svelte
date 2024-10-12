@@ -8,23 +8,32 @@
  let posX = 0;
  let posY = 0;
  let isDragging = false;
- //let modalStyle = '';
- let initialLeft;
- let initialTop;
 
- $: if (show) positionModal();
+ let left;
+ let top;
+
+ $: update(show);
+
+ async function update(show) {
+  console.log('show:', show);
+  if (show) {
+   await tick();
+   await positionModal();
+  }
+ }
 
  async function positionModal() {
-  if (modalEl) {
-   await tick();
+  if (modalEl)
+  {
+   console.log('modalEl:', modalEl);
    const modalRect = modalEl.getBoundingClientRect();
    const modalWidth = modalRect.width;
    const modalHeight = modalRect.height;
    const windowWidth = window.innerWidth;
    const windowHeight = window.innerHeight;
-   initialTop = (windowHeight - modalHeight) / 2;
-   initialLeft = (windowWidth - modalWidth) / 2;
-   //modalStyle = 'top: ' + initialTop + 'px; left: ' + initialLeft + 'px;';
+   top = (windowHeight - modalHeight) / 2;
+   left = (windowWidth - modalWidth) / 2;
+   console.log('top:', top, 'left:', left);
   }
  }
 
@@ -61,9 +70,8 @@
    const modalHeight = modalEl.offsetHeight;
    const windowWidth = window.innerWidth;
    const windowHeight = window.innerHeight;
-   x = Math.max(0, Math.min(windowWidth - modalWidth, x));
-   y = Math.max(0, Math.min(windowHeight - modalHeight, y));
-   modalStyle = `top: ${y}px; left: ${x}px;`;
+   left = Math.max(0, Math.min(windowWidth - modalWidth, x));
+   top = Math.max(0, Math.min(windowHeight - modalHeight, y));
   }
  }
 
@@ -123,7 +131,9 @@
 </style>
 
 {#if show && body}
- <div class="modal" style="top: {initialTop}px; left: {initialLeft} px;" bind:this={modalEl}>
+
+
+ <div class="modal" style="top: {top}px; left: {left}px;" bind:this={modalEl}>
   <div class="header" role="none" on:mousedown={dragStart}>
    <div class="title">{title}</div>
    <div class="close" role="button" tabindex="0" on:click={clickCloseModal} on:keydown={keyCloseModal}>
@@ -138,4 +148,6 @@
    {/if}
   </div>
  </div>
+
+
 {/if}
