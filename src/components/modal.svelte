@@ -12,9 +12,14 @@
  let left;
  let top;
 
+// $: console.log('top:', top, 'left:', left, 'modalEl.getBoundingClientRect():', modalEl?.getBoundingClientRect());
+
  $: update(show);
 
  async function update(show) {
+  /*setInterval(() => {
+   console.log('top:', top, 'left:', left, 'modalEl.getBoundingClientRect():', modalEl?.getBoundingClientRect());
+  }, 1000);*/
   console.log('show:', show);
   if (show) {
    await tick();
@@ -32,7 +37,10 @@
    const windowHeight = window.innerHeight;
    top = (windowHeight - modalHeight) / 2;
    left = (windowWidth - modalWidth) / 2;
-   console.log('top:', top, 'left:', left);
+
+   /*console.log('windowWidth:', windowWidth, 'windowHeight:', windowHeight);
+   console.log('modalWidth:', modalWidth, 'modalHeight:', modalHeight);
+   console.log('top:', top, 'left:', left);*/
   }
  }
 
@@ -87,12 +95,14 @@
   display: flex;
   flex-direction: column;
   position: fixed;
+  top: 0;
+  left: 0;
   max-width: calc(100% - 20px);
   max-height: calc(100% - 20px);
   overflow: auto;
   border: 1px solid #000;
   border-radius: 10px;
-  box-sizing: border-box;
+  /*box-sizing: border-box;*/
   box-shadow: var(--shadow);
  }
 
