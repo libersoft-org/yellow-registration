@@ -8,19 +8,12 @@
  let posX = 0;
  let posY = 0;
  let isDragging = false;
-
  let left;
  let top;
-
-// $: console.log('top:', top, 'left:', left, 'modalEl.getBoundingClientRect():', modalEl?.getBoundingClientRect());
 
  $: update(show);
 
  async function update(show) {
-  /*setInterval(() => {
-   console.log('top:', top, 'left:', left, 'modalEl.getBoundingClientRect():', modalEl?.getBoundingClientRect());
-  }, 1000);*/
-  console.log('show:', show);
   if (show) {
    await tick();
    await positionModal();
@@ -29,7 +22,6 @@
 
  async function positionModal() {
   if (modalEl) {
-   console.log('modalEl:', modalEl);
    const modalRect = modalEl.getBoundingClientRect();
    const modalWidth = modalRect.width;
    const modalHeight = modalRect.height;
@@ -37,10 +29,6 @@
    const windowHeight = window.innerHeight;
    top = (windowHeight - modalHeight) / 2;
    left = (windowWidth - modalWidth) / 2;
-
-   /*console.log('windowWidth:', windowWidth, 'windowHeight:', windowHeight);
-   console.log('modalWidth:', modalWidth, 'modalHeight:', modalHeight);
-   console.log('top:', top, 'left:', left);*/
   }
  }
 
