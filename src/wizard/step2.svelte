@@ -1,7 +1,5 @@
 <script>
  import Field from '../components/form-field.svelte';
- //import Link from '../components/link.svelte';
- //import Button from '../components/button.svelte';
 </script>
 
 <style>

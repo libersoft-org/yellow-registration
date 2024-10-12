@@ -36,7 +36,8 @@
   border: 0;
   font-family: inherit;
   font-size: inherit;
-  background-color: #fff;
+  border-radius: 5px;
+  background-color: #eee;
   cursor: pointer;
  }
 </style>
