@@ -2,7 +2,6 @@
  import { onMount } from 'svelte';
  import Field from '../components/form-field.svelte';
  import Link from '../components/link.svelte';
- import Button from '../components/button.svelte';
  import Modal from '../components/modal.svelte';
  import ModalTerms from '../components/modal-terms.svelte';
  import Datepicker from '../components/datepicker.svelte';
@@ -37,7 +36,7 @@
 </script>
 
 <style>
- .registration {
+ .form {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -59,7 +58,7 @@
  }
 </style>
 
-<div class="registration">
+<div class="form">
  <Field label="Phone number">
   <select>
    <option value="">- Country code -</option>
@@ -104,6 +103,5 @@
   <input name="terms" type="checkbox" bind:checked={terms} />
   I agree with <Link text="terms and conditions" on:click={clickTerms} />
  </label>
- <Button text="Register" />
 </div>
 <Modal title="Terms and conditions" body={ModalTerms} bind:show={showModalTerms} />

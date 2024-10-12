@@ -1,19 +1,11 @@
 <script>
  import '../app.css';
- import Registration from '../pages/registration.svelte';
+ import Wizard from '../components/wizard.svelte';
+ import WizardStep1 from '../wizard/step1.svelte';
+ import WizardStep2 from '../wizard/step2.svelte';
+ import WizardStep3 from '../wizard/step3.svelte';
  const product = 'Yellow';
- const link = 'https://yellow.libersoft.org';
-
- function clickHomepage() {
-  window.open(link, '_blank');
- }
-
- function keyHomepage() {
-  if (event.key === 'Enter' || event.key === ' ') {
-   event.preventDefault();
-   click();
-  }
- }
+ const wizardSteps = [WizardStep1, WizardStep2, WizardStep3];
 </script>
 
 <style>
@@ -32,47 +24,6 @@
   background: url('/img/background.webp') repeat;
   background-size: 400px;
   overflow: auto;
- }
-
- .form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  border: 1px solid #555;
-  padding: 10px;
-  border-radius: 10px;
-  background-color: #fff;
-  box-shadow: var(--shadow);
-  overflow: auto;
- }
-
- .form .logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
- }
-
- .form .logo img {
-  display: block;
-  width: 50px;
-  height: 50px;
- }
-
- .form .logo .title {
-  font-size: 30px;
-  font-weight: bold;
- }
-
- .form .description {
-  width: 100%;
-  padding: 5px 0;
-  text-align: center;
-  font-size: 20px;
-  font-weight: bold;
-  background-color: #fd1;
-  border-radius: 10px;
  }
 
  .status {
@@ -107,14 +58,7 @@
 
 <div class="app">
  <div class="page">
-  <div class="form">
-   <div class="logo" role="button" tabindex="0" on:click={clickHomepage} on:keydown={keyHomepage}>
-    <div><img src="img/logo.svg" alt={product} /></div>
-    <div class="title">{product}</div>
-   </div>
-   <div class="description">Account registration</div>
-   <Registration />
-  </div>
+  <Wizard steps={wizardSteps} logo="img/logo.svg" {product} description="Account registration" />
  </div>
  <div class="status">
   <div class="indicator red"></div>
