@@ -4,7 +4,9 @@
  import Link from '../components/link.svelte';
  import Modal from '../components/modal.svelte';
  import ModalTerms from '../components/modal-terms.svelte';
- import Datepicker from '../components/datepicker.svelte';
+ import Input from '../components/input.svelte';
+ import Select from '../components/select.svelte';
+ import Checkbox from '../components/checkbox.svelte';
  let countries = [];
  let domains = [
   {
@@ -16,6 +18,26 @@
    name: 'domain2.tld',
   },
  ];
+ const days = Array.from({ length: 31 }, (_, i) => i + 1);
+ const months = [
+  { value: 1, name: 'January' },
+  { value: 2, name: 'February' },
+  { value: 3, name: 'March' },
+  { value: 4, name: 'April' },
+  { value: 5, name: 'May' },
+  { value: 6, name: 'June' },
+  { value: 7, name: 'July' },
+  { value: 8, name: 'August' },
+  { value: 9, name: 'September' },
+  { value: 10, name: 'October' },
+  { value: 11, name: 'November' },
+  { value: 12, name: 'December' },
+ ];
+ const currentYear = new Date().getFullYear();
+ const years = Array.from({ length: 100 }, (_, i) => currentYear - i);
+ let day = '';
+ let month = '';
+ let year = '';
  let terms = false;
  let showModalTerms = false;
 
@@ -42,96 +64,75 @@
   gap: 10px;
  }
 
- select,
- input {
+ .datepicker {
   display: flex;
-  flex-grow: 1;
-  border: 0;
-  outline: 0;
-  font-family: inherit;
-  font-size: inherit;
-  background-color: #fff;
- }
-
- select {
-  border-radius: 5px;
-  background-color: #eee;
-  cursor: pointer;
- }
-
- .check {
-  display: flex;
-  align-items: center;
   gap: 5px;
- }
-
- .check input {
-  appearance: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  border-radius: 6px;
-  border: 1px solid #888;
-  background-color: #e0e0e0;
-  cursor: pointer;
- }
-
- .check input:checked {
-  background-color: #fd1;
- }
-
- .check input:checked::after {
-  content: '✔';
-  font-size: 16px;
+  width: 100%;
  }
 </style>
 
 <div class="form">
  <Field label="Phone number">
-  <select>
+  <Select>
    <option value="">- Country code -</option>
    {#each countries as c, index}
     <option value={index}>{c.flag} {c.dial_code} ({c.code})</option>
    {/each}
-  </select>
-  <input type="text" placeholder="Phone number" />
+  </Select>
+  <Input type="text" placeholder="Phone number" />
  </Field>
  <Field label="Username">
-  <input type="text" placeholder="Username" />
-  <select>
+  <Input type="text" placeholder="Username" />
+  <Select>
    <option value="">- Domain -</option>
    {#each domains as d (d.id)}
     <option value={d.id}>{d.name}</option>
    {/each}
-  </select>
+  </Select>
  </Field>
  <Field label="First name">
-  <input type="text" placeholder="First name" />
+  <Input type="text" placeholder="First name" />
  </Field>
  <Field label="Last name">
-  <input type="text" placeholder="Last name" />
+  <Input type="text" placeholder="Last name" />
  </Field>
  <Field label="Gender">
-  <select>
+  <Select>
    <option value="">--- Select your gender ---</option>
    <option value="1">Male</option>
    <option value="0">Female</option>
-  </select>
+  </Select>
  </Field>
  <Field label="Birth date">
-  <Datepicker />
+  <div class="datepicker">
+   <Select bind:value={day}>
+    <option value="" disabled selected>- Day -</option>
+    {#each days as d}
+     <option value={d}>{d}</option>
+    {/each}
+   </Select>
+   <Select bind:value={month}>
+    <option value="" disabled selected>- Month -</option>
+    {#each months as m}
+     <option value={m.value}>{m.name}</option>
+    {/each}
+   </Select>
+   <Select bind:value={year}>
+    <option value="" disabled selected>- Year -</option>
+    {#each years as y}
+     <option value={y}>{y}</option>
+    {/each}
+   </Select>
+  </div>
  </Field>
  <Field label="Password">
-  <input type="text" placeholder="Password" />
+  <Input type="password" placeholder="Password" />
  </Field>
  <Field label="Password again">
-  <input type="text" placeholder="Password again" />
+  <Input type="password" placeholder="Password again" />
  </Field>
- <div class="check">
-  <div><input type="checkbox" bind:checked={terms} /></div>
+ <Checkbox bind:checked={terms}>
   <div>I agree with <Link text="terms and conditions" on:click={clickTerms} /></div>
- </div>
+ </Checkbox>
 </div>
 <Modal title="Terms and conditions" body={ModalTerms} bind:show={showModalTerms} />
