@@ -79,7 +79,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  height: 40px;
+  min-height: 40px;
   padding: 0 10px;
   background-color: #222;
   color: #fff;

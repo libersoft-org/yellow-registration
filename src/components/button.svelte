@@ -1,16 +1,16 @@
 <script>
  import { createEventDispatcher } from 'svelte';
- export let img;
+ export let img = null;
  export let text = '';
  export let enabled = true;
- export let width;
+ export let width = null;
  const dispatch = createEventDispatcher();
 
  function handleClick() {
   if (enabled) dispatch('click');
  }
 
- function handleKeydown(event) {
+ function handleKey(event) {
   if (event.key === 'Enter' || event.key === ' ') {
    event.preventDefault();
    if (enabled) dispatch('click');
@@ -44,7 +44,7 @@
  }
 </style>
 
-<div class="button {!enabled ? 'disabled' : ''}" style={width ? 'width: ' + width : ''} role="button" tabindex="0" on:click={handleClick} on:keydown={handleKeydown}>
+<div class="button {!enabled ? 'disabled' : ''}" style={width ? 'width: ' + width : ''} role="button" tabindex="0" on:click={handleClick} on:keydown={handleKey}>
  <slot>
   {#if img}
    <img src={img} alt={text} />

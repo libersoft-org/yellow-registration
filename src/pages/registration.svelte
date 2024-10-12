@@ -1,9 +1,24 @@
 <script>
  import { onMount } from 'svelte';
  import Field from '../components/form-field.svelte';
+ import Link from '../components/link.svelte';
  import Button from '../components/button.svelte';
+ import Modal from '../components/modal.svelte';
+ import ModalTerms from '../components/modal-terms.svelte';
+ import Datepicker from '../components/datepicker.svelte';
  let countries = [];
+ let domains = [
+  {
+   id: 1,
+   name: 'domain1.tld',
+  },
+  {
+   id: 2,
+   name: 'domain2.tld',
+  },
+ ];
  let terms = false;
+ let showModalTerms = false;
 
  onMount(async () => {
   try {
@@ -15,15 +30,9 @@
   }
  });
 
- function clickBirthDate() {
-  // TODO - open date picker dialog
- }
-
- function keyBirthDate() {
-  if (event.key === 'Enter' || event.key === ' ') {
-   event.preventDefault();
-   clickBirthDate();
-  }
+ function clickTerms() {
+  console.log('KLIK');
+  showModalTerms = true;
  }
 </script>
 
@@ -48,10 +57,6 @@
  select {
   cursor: pointer;
  }
-
- .button {
-  cursor: pointer;
- }
 </style>
 
 <div class="registration">
@@ -63,6 +68,15 @@
    {/each}
   </select>
   <input type="text" placeholder="Phone number" />
+ </Field>
+ <Field label="Username">
+  <input type="text" placeholder="Username" />
+  <select>
+   <option value="">- Domain -</option>
+   {#each domains as d (d.id)}
+    <option value={d.id}>{d.name}</option>
+   {/each}
+  </select>
  </Field>
  <Field label="First name">
   <input type="text" placeholder="First name" />
@@ -78,7 +92,7 @@
   </select>
  </Field>
  <Field label="Birth date">
-  <div class="button" role="button" tabindex="0" on:click={clickBirthDate} on:keydown={keyBirthDate}>--- Select your birth date ---</div>
+  <Datepicker />
  </Field>
  <Field label="Password">
   <input type="text" placeholder="Password" />
@@ -88,7 +102,8 @@
  </Field>
  <label>
   <input name="terms" type="checkbox" bind:checked={terms} />
-  I agree with terms and conditions
+  I agree with <Link text="terms and conditions" on:click={clickTerms} />
  </label>
  <Button text="Register" />
 </div>
+<Modal title="Terms and conditions" body={ModalTerms} bind:show={showModalTerms} />
