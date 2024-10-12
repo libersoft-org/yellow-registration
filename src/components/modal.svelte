@@ -23,8 +23,7 @@
  }
 
  async function positionModal() {
-  if (modalEl)
-  {
+  if (modalEl) {
    console.log('modalEl:', modalEl);
    const modalRect = modalEl.getBoundingClientRect();
    const modalWidth = modalRect.width;
@@ -131,8 +130,6 @@
 </style>
 
 {#if show && body}
-
-
  <div class="modal" style="top: {top}px; left: {left}px;" bind:this={modalEl}>
   <div class="header" role="none" on:mousedown={dragStart}>
    <div class="title">{title}</div>
@@ -148,6 +145,4 @@
    {/if}
   </div>
  </div>
-
-
 {/if}
