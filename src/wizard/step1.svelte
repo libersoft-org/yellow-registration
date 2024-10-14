@@ -37,7 +37,6 @@
   </Select>
   <Input type="text" placeholder="Phone number" />
  </Field>
-
  <Checkbox bind:checked={terms}>
   <div>I agree with <Link text="terms and conditions" on:click={clickTerms} /></div>
  </Checkbox>
