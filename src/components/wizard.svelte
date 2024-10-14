@@ -72,6 +72,7 @@
   font-weight: bold;
   width: 100%;
   text-align: center;
+  padding-bottom: 10px;
  }
 
  .progress-bar {
@@ -79,7 +80,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 0;
+  padding-bottom: 10px;
  }
 
  .progress-bar .step {
