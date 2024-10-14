@@ -4,8 +4,8 @@
  export let product = null;
  export let logo = null;
  export let description;
-
- const link = 'https://yellow.libersoft.org';
+ export let link;
+ let finish;
  let currentStep = 0;
 
  function clickHomepage() {
@@ -27,8 +27,8 @@
   if (currentStep > 0) currentStep -= 1;
  }
 
- function finish() {
-  // TODO
+ function finished() {
+  finish = true;
  }
 </script>
 
@@ -70,12 +70,16 @@
  .description {
   font-size: 20px;
   font-weight: bold;
+  width: 100%;
+  text-align: center;
  }
 
  .progress-bar {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 10px 0;
  }
 
  .progress-bar .step {
@@ -116,6 +120,13 @@
  .navigation .gap {
   flex-grow: 1;
  }
+
+ .finish {
+  padding: 10px;
+  border: 1px solid #080;
+  border-radius: 10px;
+  background-color: #efe;
+ }
 </style>
 
 {#if steps.length > 0}
@@ -133,31 +144,35 @@
   {#if description}
    <div class="description">{description}</div>
   {/if}
-  <div class="progress-bar">
-   {#each steps as step, index}
-    <div class="step">
-     <div class="circle {index === currentStep ? 'active' : ''}">
-      {index + 1}
+  {#if !finish}
+   <div class="progress-bar">
+    {#each steps as step, index}
+     <div class="step">
+      <div class="circle {index === currentStep ? 'active' : ''}">
+       {index + 1}
+      </div>
+      {#if index < steps.length - 1}
+       <div class="line"></div>
+      {/if}
      </div>
-     {#if index < steps.length - 1}
-      <div class="line"></div>
-     {/if}
-    </div>
-   {/each}
-  </div>
-  <div class="content">
-   <svelte:component this={steps[currentStep]} />
-  </div>
-  <div class="navigation">
-   {#if currentStep > 0}
-    <Button on:click={prevStep} text="Previous" />
-   {/if}
-   <div class="gap"></div>
-   {#if currentStep < steps.length - 1}
-    <Button on:click={nextStep} text="Next" />
-   {:else}
-    <Button on:click={finish} text="Finish" />
-   {/if}
-  </div>
+    {/each}
+   </div>
+   <div class="content">
+    <svelte:component this={steps[currentStep]} />
+   </div>
+   <div class="navigation">
+    {#if currentStep > 0}
+     <Button on:click={prevStep} text="Previous" />
+    {/if}
+    <div class="gap"></div>
+    {#if currentStep < steps.length - 1}
+     <Button on:click={nextStep} text="Next" />
+    {:else}
+     <Button on:click={finished} text="Finish" />
+    {/if}
+   </div>
+  {:else}
+   <div class="finish">Registration completed successfully.</div>
+  {/if}
  </div>
 {/if}
