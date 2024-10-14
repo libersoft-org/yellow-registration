@@ -32,7 +32,7 @@
   <Select>
    <option value="">- Country code -</option>
    {#each countries as c, index}
-    <option value={index}>{c.flag} {c.dial_code} ({c.code})</option>
+    <option value={index}>{c.flag} ({c.code}) {c.dial_code}</option>
    {/each}
   </Select>
   <Input type="text" placeholder="Phone number" />
